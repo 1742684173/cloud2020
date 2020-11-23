@@ -1,0 +1,31 @@
+server:
+  port: 3366
+spring:
+  application:
+    name: config-client
+  cloud:
+    config:
+      label: main
+      name: config
+      profile: dev
+      uri: http://config-3344.com:3344/
+
+eureka:
+  client:
+    #表示是否注册到服务中心，默认是true, false表示不向服务中心注册自己
+    register-with-eureka: true
+    #是否丛服务端抓取已有的注册信息，默认为true,单节点无所谓，集群必需设置为true,才能使用ribbon使用负载均衡，false表示自己端就是服务中心，我的职责是维护实例，并不需要检索服务
+    fetchRegistry: true
+    service-url:
+      #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址
+      defaultZone: http://localhost:7001/eureka/ #单机
+#      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/ #集群
+
+#暴露监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+
